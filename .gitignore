@@ -1,0 +1,11 @@
+bin
+bin/
+obj
+obj/
+build
+build/
+Logs
+Logs/
+logs
+logs/
+*.user
