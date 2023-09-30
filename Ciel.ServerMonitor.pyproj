@@ -1,0 +1,102 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>f233d36a-f79c-4172-b2d7-f2f2708dcbb5</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Ciel.ServerMonitor</Name>
+    <RootNamespace>Ciel.ServerMonitor</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <InterpreterId>Global|PythonCore|3.10</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'DbgSvc' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <OutputPath>bin\DbgSvc\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.10" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\bin\" />
+    <Folder Include="assets\backup\" />
+    <Folder Include="monitor\" />
+    <Folder Include="monitor\helper\" />
+    <Folder Include="monitor\config\" />
+    <Folder Include="monitor\assets\" />
+    <Folder Include="monitor\server_controller\" />
+    <Folder Include="monitor\server_controller\support\" />
+    <Folder Include="monitor\server_message_monitor\" />
+    <Folder Include="monitor\server_message_processor\" />
+    <Folder Include="config\" />
+    <Folder Include="assets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="monitor\application_finder.py" />
+    <Compile Include="monitor\application_search_criteria.py" />
+    <Compile Include="monitor\assets\assets_replacer.py" />
+    <Compile Include="monitor\assets\assets_replacer_options.py" />
+    <Compile Include="monitor\config\default_monitor_config_provider.py" />
+    <Compile Include="monitor\config\ini_config_provider.py" />
+    <Compile Include="monitor\config\monitor_config.py" />
+    <Compile Include="monitor\config\monitor_config_provider.py" />
+    <Compile Include="monitor\config\__init__.py" />
+    <Compile Include="monitor\helper\console_output.py" />
+    <Compile Include="monitor\helper\file_appender.py" />
+    <Compile Include="monitor\helper\file_hasher.py" />
+    <Compile Include="monitor\helper\set_edit_text.py" />
+    <Compile Include="monitor\helper\size.py" />
+    <Compile Include="monitor\helper\ui.py" />
+    <Compile Include="monitor\helper\__init__.py" />
+    <Compile Include="monitor\server_controller\server_application_controller.py" />
+    <Compile Include="monitor\server_controller\server_application_controller_options.py" />
+    <Compile Include="monitor\server_controller\support\server_control_button_finder.py" />
+    <Compile Include="monitor\server_controller\server_start_stop_controller.py" />
+    <Compile Include="monitor\server_controller\support\server_control_button_search_criteria.py" />
+    <Compile Include="monitor\server_controller\support\__init__.py" />
+    <Compile Include="monitor\server_controller\__init__.py" />
+    <Compile Include="monitor\server_message_element_finder.py" />
+    <Compile Include="monitor\server_message_element_search_criteria.py" />
+    <Compile Include="monitor\server_message_monitor\server_message_monitor.py" />
+    <Compile Include="monitor\server_message_monitor\server_message_monitor_controller.py" />
+    <Compile Include="monitor\server_message_monitor\server_message_monitor_options.py" />
+    <Compile Include="monitor\server_message_monitor\__init__.py" />
+    <Compile Include="monitor\server_message_processor\log_message_processor.py" />
+    <Compile Include="monitor\server_message_processor\log_message_processor_options.py" />
+    <Compile Include="monitor\server_message_processor\message_processor.py" />
+    <Compile Include="monitor\server_message_processor\processing_result.py" />
+    <Compile Include="monitor\server_message_processor\trim_message_processor.py" />
+    <Compile Include="monitor\server_message_processor\__init__.py" />
+    <Compile Include="monitor\server_message_processor\trim_message_processor_options.py" />
+    <Compile Include="monitor\__init__.py" />
+    <Compile Include="run.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\bin\Ciel.Entities.dll" />
+    <Content Include="build.ps1" />
+    <Content Include="config\monitor.ini" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
