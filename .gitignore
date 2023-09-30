@@ -8,4 +8,7 @@ Logs
 Logs/
 logs
 logs/
+dist
+dist/
 *.user
+*.suo
