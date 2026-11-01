@@ -12,7 +12,7 @@ VALID_SIZE_UNIT_EXPONENTS = {
     'G': 3
 }
 
-def strtoint_byte_size(str_byte_size:str):
+def strtoint_byte_size(str_byte_size:str) -> int:
     if str_byte_size is None:
         return 0;
 
@@ -24,4 +24,4 @@ def strtoint_byte_size(str_byte_size:str):
     unit_spec = match.group('unitspec') or DEFAULT_UNIT_SPEC
     unit_exp = VALID_SIZE_UNIT_EXPONENTS.get(unit_spec) or 0
 
-    return int(size_spec) * math.pow(1024, unit_exp)
+    return int(size_spec) * int(math.pow(1024, unit_exp))

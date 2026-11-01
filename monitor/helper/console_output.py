@@ -9,7 +9,7 @@ class ConsoleOutput:
 
     def begin(self) -> None:
         print('')
-        print(self.format_message('Begin monitoring NextUp ERP window. Type stop or press Ctrl+C to stop...'))
+        print(self.format_message('Begin monitoring NextUp ERP window. Type quit or press Ctrl+C to stop...'))
 
     def monitor_stop_requested(self) -> None:
         print(self.format_message(chalk.yellow_bright('Stop requested...')))

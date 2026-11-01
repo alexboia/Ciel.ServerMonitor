@@ -54,7 +54,6 @@
     <Compile Include="monitor\config\__init__.py" />
     <Compile Include="monitor\helper\console_output.py" />
     <Compile Include="monitor\helper\file_appender.py" />
-    <Compile Include="monitor\helper\file_hasher.py" />
     <Compile Include="monitor\helper\set_edit_text.py" />
     <Compile Include="monitor\helper\size.py" />
     <Compile Include="monitor\helper\ui.py" />
