@@ -13,3 +13,4 @@ dist/
 *.user
 *.suo
 *.pyc
+.vs

@@ -26,6 +26,7 @@ class ServerStartStopController:
         if button.is_enabled():
             try:
                 button.click(button='left')
+                return True
             except:
                 logging.exception('Error performing button click. Attempting direct')
                 try:

@@ -12,14 +12,24 @@ def find_target_window(application: Application, search_auto_ids: list[str]) -> 
                 perform_select = True
                 s_auto_id = s_auto_id.replace('.select', '')
 
-            search_wnd = search_wnd.child_window(auto_id=s_auto_id, enabled_only=False, visible_only=False)
+            search_wnd = search_wnd.child_window(auto_id=s_auto_id, 
+                enabled_only=False, 
+                visible_only=False)
+
+            if (search_wnd is None):
+                return None
+
+            if (not search_wnd.exists(timeout=1)):
+                return None
+
             if perform_select:
                 try:
                     search_wnd.set_focus()
                 except:
                     logging.exception('Error trying to set focus on search window.')
                     try:
-                        top_wnd.restore.maximize()
+                        top_wnd.restore()
+                        top_wnd.maximize()
                     except:
                         logging.exception('Error trying maximize top window.')
 

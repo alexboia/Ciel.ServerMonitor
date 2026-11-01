@@ -147,7 +147,7 @@ def run_loop(server_ctrl: ServerStartStopController, monitor_ctrl: ServerMessage
                 out.server_start_requested()
                 if not server_ctrl.is_started():
                     logging.debug('Attempting to start server...')
-                    if server_ctrl.start():
+                    if not server_ctrl.start():
                         out.error_message('Failed to start server.')
                     else:
                         out.generic_info('Successfully started server.')
@@ -158,7 +158,7 @@ def run_loop(server_ctrl: ServerStartStopController, monitor_ctrl: ServerMessage
                 out.server_stop_requested()
                 if server_ctrl.is_started():
                     logging.debug('Attempting to stop server...')
-                    if server_ctrl.stop():
+                    if not server_ctrl.stop():
                         out.error_message('Failed to stop server.')
                     else:
                         out.generic_info('Successfully stopped server.')
