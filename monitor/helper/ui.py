@@ -33,7 +33,7 @@ def find_target_window(application: Application, search_auto_ids: list[str]) -> 
                     except:
                         logging.exception('Error trying maximize top window.')
 
-            return search_wnd
+        return search_wnd
     except:
         logging.exception('Error searching for target window')
         return None

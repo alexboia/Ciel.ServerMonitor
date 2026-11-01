@@ -1,0 +1,147 @@
+---
+title: Ciel.ServerMonitor - main classes
+---
+classDiagram
+    direction LR
+
+    %% ---------- Configuration ----------
+    class MonitorConfigProvider {
+        <<abstract>>
+        +get_config() MonitorConfig
+    }
+    class DefaultMonitorConfigProvider {
+        +get_config() MonitorConfig
+    }
+    class IniConfigProvider {
+        -_file: str
+        -_default_provider: DefaultMonitorConfigProvider
+        +get_config() MonitorConfig
+    }
+    class MonitorConfig {
+        +get_app_search_configuration(key)
+        +get_server_message_element_search_configuration(key)
+        +get_poll_confg(key)
+        +get_server_controller_configuration(key)
+        +get_processors_names() list~str~
+        +get_processor_configuration_value(name, key)
+    }
+    MonitorConfigProvider <|-- DefaultMonitorConfigProvider
+    MonitorConfigProvider <|-- IniConfigProvider
+    IniConfigProvider o-- DefaultMonitorConfigProvider : defaults
+    MonitorConfigProvider ..> MonitorConfig : creates
+
+    %% ---------- Finding the application and elements ----------
+    class ApplicationSearchCriteria {
+        -_type: str
+        -_keyword: str
+        +is_exact_title_search() bool
+        +is_regexp_title_search() bool
+    }
+    class ApplicationFinder {
+        -_current_application: Application
+        +find() Application
+        +is_app_reachable() bool
+    }
+    class ServerMessageElementSearchCriteria {
+        +get_parent_auto_ids() list~str~
+        +get_final_selector() str
+    }
+    class ServerMessageElementFinder {
+        +find_server_messages_element() EditWrapper
+        +find_process_messages_element() EditWrapper
+    }
+    ApplicationFinder --> ApplicationSearchCriteria
+    ServerMessageElementFinder --> ApplicationFinder
+    ServerMessageElementFinder --> "2" ServerMessageElementSearchCriteria : server / process
+
+    %% ---------- Message processing ----------
+    class MessageProcessor {
+        <<abstract>>
+        +process_text_lines(target_element, prev_result) ProcessingResult
+    }
+    class TrimMessageProcessor {
+        -_options: TrimMessageProcessorOptions
+    }
+    class LogMessageProcessor {
+        -_options: LogMessageProcessorOptions
+        -_appender: FileAppender
+    }
+    class ProcessingResult {
+        +get_discarded_txt() str
+        +get_remaining_txt() str
+    }
+    class FileAppender {
+        -_file_path: str
+        -_max_size_bytes: int
+        +append_text(txt)
+    }
+    MessageProcessor <|-- TrimMessageProcessor
+    MessageProcessor <|-- LogMessageProcessor
+    MessageProcessor ..> ProcessingResult : receives / returns
+    LogMessageProcessor *-- FileAppender
+
+    %% ---------- Monitoring ----------
+    class Thread {
+        <<threading>>
+    }
+    class ServerMessageMonitor {
+        -_stop_requested: bool
+        -_max_retry_count: int
+        +run()
+        +request_stop()
+        +is_stop_requested() bool
+        +dispose()
+        -_discreet_sleep(seconds) bool
+        -_clear_additional_server_log()
+        -_process_server_messages()
+    }
+    class ServerMessageMonitorOptions {
+        +get_poll_seconds() int
+    }
+    class ServerMessageMonitorController {
+        +start_monitoring()
+        +stop_monitoring()
+        +is_monitoring() bool
+    }
+    Thread <|-- ServerMessageMonitor
+    ServerMessageMonitor --> ServerMessageMonitorOptions
+    ServerMessageMonitor --> ServerMessageElementFinder
+    ServerMessageMonitor o-- "*" MessageProcessor : ordered chain
+    ServerMessageMonitorController --> ServerMessageMonitor
+
+    %% ---------- Server control ----------
+    class ServerStartStopController {
+        +start() bool
+        +stop() bool
+        +is_started() bool
+        -_click(button) bool
+    }
+    class ServerControlButtonFinder {
+        +find_start_button() ButtonWrapper
+        +find_stop_button() ButtonWrapper
+    }
+    class ServerControlButtonSearchCriteria {
+        +get_parent_auto_ids()
+        +get_btn_start_selector() str
+        +get_btn_stop_selector() str
+    }
+    class ServerApplicationControllerOptions
+    ServerStartStopController *-- ServerControlButtonFinder
+    ServerStartStopController ..> ServerApplicationControllerOptions
+    ServerControlButtonFinder --> ApplicationFinder
+    ServerControlButtonFinder --> ServerControlButtonSearchCriteria
+
+    %% ---------- Entry point ----------
+    class run_py {
+        <<module>>
+        +run()
+        +run_loop(server_ctrl, monitor_ctrl, out)
+        +build_processors(config)
+        +build_monitor(app_finder, config)
+        +build_server_controller(app_finder, config)
+    }
+    class ConsoleOutput
+    run_py ..> IniConfigProvider
+    run_py ..> ServerMessageMonitorController
+    run_py ..> ServerStartStopController
+    run_py ..> ConsoleOutput
