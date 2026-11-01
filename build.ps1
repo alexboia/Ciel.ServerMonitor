@@ -1,4 +1,4 @@
-pyinstaller --clean --onefile --name ciel-server-monitor run.py
+python -m PyInstaller --clean --onefile --name ciel-server-monitor run.py
 
 New-Item -Force -Type Directory ./dist/assets
 Copy-Item -Force -Recurse ./assets/* ./dist/assets

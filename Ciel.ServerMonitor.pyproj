@@ -37,7 +37,6 @@
     <Folder Include="monitor\" />
     <Folder Include="monitor\helper\" />
     <Folder Include="monitor\config\" />
-    <Folder Include="monitor\assets\" />
     <Folder Include="monitor\server_controller\" />
     <Folder Include="monitor\server_controller\support\" />
     <Folder Include="monitor\server_message_monitor\" />
@@ -48,8 +47,6 @@
   <ItemGroup>
     <Compile Include="monitor\application_finder.py" />
     <Compile Include="monitor\application_search_criteria.py" />
-    <Compile Include="monitor\assets\assets_replacer.py" />
-    <Compile Include="monitor\assets\assets_replacer_options.py" />
     <Compile Include="monitor\config\default_monitor_config_provider.py" />
     <Compile Include="monitor\config\ini_config_provider.py" />
     <Compile Include="monitor\config\monitor_config.py" />
@@ -86,7 +83,6 @@
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\bin\Ciel.Entities.dll" />
     <Content Include="build.ps1" />
     <Content Include="config\monitor.ini" />
   </ItemGroup>
